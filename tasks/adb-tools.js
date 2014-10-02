@@ -31,6 +31,24 @@ module.exports = function (grunt) {
         });
     };
 
+    grunt.registerMultiTask('adbInstall', 'Pushes an Android application (specified as a full path to an .apk file) to an emulator/device.', function () {
+
+        var done = this.async();
+        var completeFiles = 0;
+        var files = this.files;
+
+        // Iterate over all specified file groups.
+        files.forEach(function (file) {
+            run('adb install ' + file.src, function () {
+                completeFiles++;
+
+                if (completeFiles === files.length) {
+                    done();
+                }
+            });
+        });
+    });
+
     grunt.registerMultiTask('adbPush', 'Copies a specified file from your development computer to an emulator/device instance.', function () {
 
         var done = this.async();

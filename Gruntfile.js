@@ -26,6 +26,16 @@ module.exports = function (grunt) {
         },
 
         // Configuration to be run.
+        adbInstall: {
+            someApps: {
+                files: [{
+                    expand: true,
+                    cwd: 'tmp',
+                    src: ['*.apk']
+                }]
+            }
+        },
+
         adbPush: {
             someTexts: {
                 files: [{
@@ -42,6 +52,7 @@ module.exports = function (grunt) {
     grunt.loadTasks('tasks');
 
     // By default, lint and run this plugin's task(s).
-    grunt.registerTask('default', ['jshint', 'adbPush']);
+    grunt.registerTask('install', ['jshint', 'adbInstall']);
+    grunt.registerTask('push', ['jshint', 'adbPush']);
 
 };
