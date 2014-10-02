@@ -38,7 +38,7 @@ module.exports = function (grunt) {
 
         adbUninstall: {
             someApps: {
-                packageNames: ['com.anzhuoshoudiantong']
+                packageNames: ['com.candl.athena']
             }
         },
 
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
 
         adbForceStop: {
             someApps: {
-                packageNames: ['com.anzhuoshoudiantong']
+                packageNames: ['com.candl.athena']
             }
         },
     });
@@ -63,10 +63,12 @@ module.exports = function (grunt) {
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
-    // By default, lint and run this plugin's task(s).
-    grunt.registerTask('install', ['jshint', 'adbInstall']);
-    grunt.registerTask('uninstall', ['jshint', 'adbUninstall']);
-    grunt.registerTask('push', ['jshint', 'adbPush']);
-    grunt.registerTask('force-stop', ['jshint', 'adbForceStop']);
+    // By default, lint this plugin's task(s).
+    grunt.registerTask('default', ['jshint']);
+
+    grunt.registerTask('install', ['adbInstall']);
+    grunt.registerTask('uninstall', ['adbUninstall']);
+    grunt.registerTask('push', ['adbPush']);
+    grunt.registerTask('force-stop', ['adbForceStop']);
 
 };
