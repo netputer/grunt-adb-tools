@@ -83,6 +83,24 @@ module.exports = function (grunt) {
 
     });
 
+    grunt.registerMultiTask('adbStart', 'Start an Activity specified by intent.', function () {
+
+        var done = this.async();
+        var completeFiles = 0;
+
+        var intents = this.data.intents;
+
+        // Iterate over all specified file groups.
+        intents.forEach(function (intent) {
+            run('adb shell am start ' + intent, function () {
+                if (++completeFiles === intents.length) {
+                    done();
+                }
+            });
+        });
+
+    });
+
     grunt.registerMultiTask('adbForceStop', 'Force stop everything associated with package name.', function () {
 
         var done = this.async();

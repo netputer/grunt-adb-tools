@@ -53,11 +53,20 @@ module.exports = function (grunt) {
             }
         },
 
+        adbStart: {
+            someApps: {
+                intents: [
+                    'com.candl.athena',
+                    'http://www.baidu.com/'
+                ]
+            }
+        },
+
         adbForceStop: {
             someApps: {
                 packageNames: ['com.candl.athena']
             }
-        },
+        }
     });
 
     // Actually load this plugin's task(s).
@@ -69,6 +78,7 @@ module.exports = function (grunt) {
     grunt.registerTask('install', ['adbInstall']);
     grunt.registerTask('uninstall', ['adbUninstall']);
     grunt.registerTask('push', ['adbPush']);
+    grunt.registerTask('start', ['adbStart']);
     grunt.registerTask('force-stop', ['adbForceStop']);
 
 };
