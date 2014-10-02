@@ -8,43 +8,44 @@
 
 'use strict';
 
+var exec = require('child_process').exec;
+
 module.exports = function (grunt) {
 
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
 
-    grunt.registerMultiTask('adb_tools', 'Better way to run ADB command in grunt.', function () {
+    var run = function (command, callback) {
+        exec(command, function (err, stdout, stderr) {
+            grunt.log.ok('Command:', command);
 
-        // Merge task-specific and/or target-specific options with these defaults.
-        var options = this.options({
-            punctuation: '.',
-            separator: ', '
+            if (err) {
+                grunt.warn(err);
+            }
+
+            grunt.log.ok(stdout);
+            grunt.log.error(stderr);
+            grunt.log.writeln();
+
+            callback(err, stdout, stderr);
         });
+    };
+
+    grunt.registerMultiTask('adbPush', 'Copies a specified file from your development computer to an emulator/device instance.', function () {
+
+        var done = this.async();
+        var completeFiles = 0;
+        var files = this.files;
 
         // Iterate over all specified file groups.
-        this.files.forEach(function (file) {
-            // Concat specified files.
-            var src = file.src.filter(function (filepath) {
-                // Warn on and remove invalid source files (if nonull was set).
-                if (!grunt.file.exists(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
-                    return false;
-                } else {
-                    return true;
+        files.forEach(function (file) {
+            run('adb push ' + file.src + ' ' + file.dest, function () {
+                completeFiles++;
+
+                if (completeFiles === files.length) {
+                    done();
                 }
-            }).map(function (filepath) {
-                // Read file source.
-                return grunt.file.read(filepath);
-            }).join(grunt.util.normalizelf(options.separator));
-
-            // Handle options.
-            src += options.punctuation;
-
-            // Write the destination file.
-            grunt.file.write(file.dest, src);
-
-            // Print a success message.
-            grunt.log.writeln('File "' + file.dest + '" created.');
+            });
         });
     });
 

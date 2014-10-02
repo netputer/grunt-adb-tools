@@ -25,19 +25,15 @@ module.exports = function (grunt) {
             }
         },
 
-        // Configuration to be run (and then tested).
-        adb_tools: {
-            default_options: {
-                options: {
-                },
-                files: {
-                }
-            },
-            custom_options: {
-                options: {
-                },
-                files: {
-                }
+        // Configuration to be run.
+        adbPush: {
+            someTexts: {
+                files: [{
+                    expand: true,
+                    cwd: 'tmp',
+                    src: ['*.txt'],
+                    dest: '/sdcard/netputer'
+                }]
             }
         }
     });
@@ -46,6 +42,6 @@ module.exports = function (grunt) {
     grunt.loadTasks('tasks');
 
     // By default, lint and run this plugin's task(s).
-    grunt.registerTask('default', ['jshint', 'adb_tools']);
+    grunt.registerTask('default', ['jshint', 'adbPush']);
 
 };
