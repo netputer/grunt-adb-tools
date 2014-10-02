@@ -36,6 +36,12 @@ module.exports = function (grunt) {
             }
         },
 
+        adbUninstall: {
+            someApps: {
+                packageNames: ['com.anzhuoshoudiantong']
+            }
+        },
+
         adbPush: {
             someTexts: {
                 files: [{
@@ -53,6 +59,7 @@ module.exports = function (grunt) {
 
     // By default, lint and run this plugin's task(s).
     grunt.registerTask('install', ['jshint', 'adbInstall']);
+    grunt.registerTask('uninstall', ['jshint', 'adbUninstall']);
     grunt.registerTask('push', ['jshint', 'adbPush']);
 
 };

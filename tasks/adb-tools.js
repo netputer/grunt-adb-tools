@@ -49,6 +49,25 @@ module.exports = function (grunt) {
         });
     });
 
+    grunt.registerMultiTask('adbUninstall', 'Removes a package from the system.', function () {
+
+        var done = this.async();
+        var completeFiles = 0;
+
+        var packageNames = this.data.packageNames;
+
+        // Iterate over all specified file groups.
+        packageNames.forEach(function (packageName) {
+            run('adb uninstall ' + packageName, function () {
+                completeFiles++;
+
+                if (completeFiles === packageNames.length) {
+                    done();
+                }
+            });
+        });
+    });
+
     grunt.registerMultiTask('adbPush', 'Copies a specified file from your development computer to an emulator/device instance.', function () {
 
         var done = this.async();
