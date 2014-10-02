@@ -51,7 +51,13 @@ module.exports = function (grunt) {
                     dest: '/sdcard/netputer'
                 }]
             }
-        }
+        },
+
+        adbForceStop: {
+            someApps: {
+                packageNames: ['com.anzhuoshoudiantong']
+            }
+        },
     });
 
     // Actually load this plugin's task(s).
@@ -61,5 +67,6 @@ module.exports = function (grunt) {
     grunt.registerTask('install', ['jshint', 'adbInstall']);
     grunt.registerTask('uninstall', ['jshint', 'adbUninstall']);
     grunt.registerTask('push', ['jshint', 'adbPush']);
+    grunt.registerTask('force-stop', ['jshint', 'adbForceStop']);
 
 };

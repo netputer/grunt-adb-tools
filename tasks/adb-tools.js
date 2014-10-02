@@ -83,4 +83,22 @@ module.exports = function (grunt) {
 
     });
 
+    grunt.registerMultiTask('adbForceStop', 'Force stop everything associated with package name.', function () {
+
+        var done = this.async();
+        var completeFiles = 0;
+
+        var packageNames = this.data.packageNames;
+
+        // Iterate over all specified file groups.
+        packageNames.forEach(function (packageName) {
+            run('adb shell am force-stop ' + packageName, function () {
+                if (++completeFiles === packageNames.length) {
+                    done();
+                }
+            });
+        });
+
+    });
+
 };
