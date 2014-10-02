@@ -40,13 +40,12 @@ module.exports = function (grunt) {
         // Iterate over all specified file groups.
         files.forEach(function (file) {
             run('adb install ' + file.src, function () {
-                completeFiles++;
-
-                if (completeFiles === files.length) {
+                if (++completeFiles === files.length) {
                     done();
                 }
             });
         });
+
     });
 
     grunt.registerMultiTask('adbUninstall', 'Removes a package from the system.', function () {
@@ -59,13 +58,12 @@ module.exports = function (grunt) {
         // Iterate over all specified file groups.
         packageNames.forEach(function (packageName) {
             run('adb uninstall ' + packageName, function () {
-                completeFiles++;
-
-                if (completeFiles === packageNames.length) {
+                if (++completeFiles === packageNames.length) {
                     done();
                 }
             });
         });
+
     });
 
     grunt.registerMultiTask('adbPush', 'Copies a specified file from your development computer to an emulator/device instance.', function () {
@@ -77,13 +75,12 @@ module.exports = function (grunt) {
         // Iterate over all specified file groups.
         files.forEach(function (file) {
             run('adb push ' + file.src + ' ' + file.dest, function () {
-                completeFiles++;
-
-                if (completeFiles === files.length) {
+                if (++completeFiles === files.length) {
                     done();
                 }
             });
         });
+
     });
 
 };
