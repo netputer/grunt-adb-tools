@@ -1,6 +1,6 @@
 {
   "name": "grunt-adb-tools",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Better way to run ADB command in grunt.",
   "homepage": "https://github.com/netputer/grunt-adb-tools",
   "repository": "https://github.com/netputer/grunt-adb-tools",
