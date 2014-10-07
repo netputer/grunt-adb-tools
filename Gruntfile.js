@@ -24,6 +24,19 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             }
         },
+        bump: {
+            options: {
+                files: ['package.json'],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['-a'],
+                createTag: true,
+                tagName: 'v%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: false
+            }
+        },
 
         // Configuration to be run.
         adbInstall: {
@@ -80,5 +93,24 @@ module.exports = function (grunt) {
     grunt.registerTask('push', ['adbPush']);
     grunt.registerTask('start', ['adbStart']);
     grunt.registerTask('force-stop', ['adbForceStop']);
+
+    // Release related tasks.
+    grunt.registerTask('update', [
+        'bump-only:patch',
+        'changelog',
+        'bump-commit'
+    ]);
+
+    grunt.registerTask('update:minor', [
+        'bump-only:minor',
+        'changelog',
+        'bump-commit'
+    ]);
+
+    grunt.registerTask('update:major', [
+        'bump-only:major',
+        'changelog',
+        'bump-commit'
+    ]);
 
 };
