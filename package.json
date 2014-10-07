@@ -10,6 +10,8 @@
     "url": "http://NetPuter.me/"
   },
   "keywords": [
+    "adb",
+    "android",
     "gruntplugin"
   ],
   "main": "Gruntfile.js",
