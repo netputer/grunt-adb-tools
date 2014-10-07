@@ -17,14 +17,17 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-adb-tools');
 ```
 
-## The "adb_tools" task
+## The "adbInstall" task
 
 ### Overview
-In your project's Gruntfile, add a section named `adb_tools` to the data object passed into `grunt.initConfig()`.
+
+> Pushes an Android application to an emulator/device.
+
+In your project's Gruntfile, add a section named `adbInstall` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  adb_tools: {
+  adbInstall: {
     options: {
       // Task-specific options go here.
     },
@@ -37,47 +40,168 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+No options provided.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+```js
+grunt.initConfig({
+  adbInstall: {
+    someApps: {
+      files: [{
+        expand: true,
+        cwd: 'tmp',
+        src: ['*.apk']
+      }]
+    }
+  },
+})
+```
+
+## The "adbUninstall" task
+
+### Overview
+
+> Removes a package from the system.
 
 ```js
 grunt.initConfig({
-  adb_tools: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+  adbUninstall: {
+    options: {
+      // Task-specific options go here.
+    },
+    your_target: {
+      // Target-specific file lists and/or options go here.
     },
   },
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+### Options
+
+No options provided.
+
+### Usage Examples
 
 ```js
 grunt.initConfig({
-  adb_tools: {
+  adbUninstall: {
+    someApps: {
+      packageNames: ['com.candl.athena']
+    }
+  },
+})
+```
+
+## The "adbPush" task
+
+### Overview
+
+> Copies a specified file from your development computer to an emulator/device instance.
+
+```js
+grunt.initConfig({
+  adbPush: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      // Task-specific options go here.
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    your_target: {
+      // Target-specific file lists and/or options go here.
     },
+  },
+})
+```
+
+### Options
+
+No options provided.
+
+### Usage Examples
+
+```js
+grunt.initConfig({
+  adbPush: {
+    someTexts: {
+      files: [{
+        expand: true,
+        cwd: 'tmp',
+        src: ['*.txt'],
+        dest: '/sdcard/netputer'
+      }]
+    }
+  },
+})
+```
+
+## The "adbStart" task
+
+### Overview
+
+> Start an Activity specified by intent.
+
+```js
+grunt.initConfig({
+  adbStart: {
+    options: {
+      // Task-specific options go here.
+    },
+    your_target: {
+      // Target-specific file lists and/or options go here.
+    },
+  },
+})
+```
+
+### Options
+
+No options provided.
+
+### Usage Examples
+
+```js
+grunt.initConfig({
+  adbStart: {
+    someApps: {
+      intents: [
+        'com.candl.athena',
+        'http://www.baidu.com/'
+      ]
+    }
+  },
+})
+```
+
+## The "adbForceStop" task
+
+### Overview
+
+> Force stop everything associated with package name.
+
+```js
+grunt.initConfig({
+  adbForceStop: {
+    options: {
+      // Task-specific options go here.
+    },
+    your_target: {
+      // Target-specific file lists and/or options go here.
+    },
+  },
+})
+```
+
+### Options
+
+No options provided.
+
+### Usage Examples
+
+```js
+grunt.initConfig({
+  adbForceStop: {
+    someApps: {
+      packageNames: ['com.candl.athena']
+    }
   },
 })
 ```
@@ -86,7 +210,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 Copyright (c) 2014 NetPuter. Licensed under the MIT license.
